@@ -4,9 +4,9 @@ package main
 import (
 	"fmt"
 	"math"
-	"time"
-
 	"math/rand"
+	"os"
+	"time"
 
 	"github.com/nsf/termbox-go"
 )
@@ -184,12 +184,18 @@ func updateStatus(s state) state {
 	if s.Ball.Collision(s.LeftLine) {
 		s.Ball = inirBall()
 		s.ScorePlayer++
+		if s.ScorePlayer > 1 {
+			os.Create("end")
+		}
 		s.Count = 0
 	}
 
 	if s.Ball.Collision(s.RightLine) {
 		s.Ball = inirBall()
 		s.ScoreEnemy++
+		if s.ScoreEnemy > 1 {
+			os.Create("file")
+		}
 		s.Count = 0
 	}
 	return s
